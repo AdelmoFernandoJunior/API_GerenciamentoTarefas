@@ -1,7 +1,7 @@
 import logging
 import uuid
 from functools import wraps
-from typing import Optional
+from contextvars import ContextVar
 
 class ContextLogger:
     _instance = None
@@ -27,15 +27,15 @@ class ContextLogger:
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
         
-        self._correlation_id = None
+        self._correlation_id = ContextVar('correlation_id', default=None)
 
     @property
     def correlation_id(self) -> str:
-        return self._correlation_id or 'NO_CORRELATION_ID'
+        return self._correlation_id.get() or 'NO_CORRELATION_ID'
 
     @correlation_id.setter
     def correlation_id(self, value: str):
-        self._correlation_id = value
+        self._correlation_id.set(value)
 
     def _log(self, level: int, message: str, *args, **kwargs):
         extra = {'correlation_id': self.correlation_id}

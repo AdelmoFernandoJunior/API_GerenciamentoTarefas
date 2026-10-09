@@ -13,7 +13,7 @@ def test_repository_save_success(mock_db):
     db_instance.insert.return_value = True
     
     # Criar repositório e tarefa
-    repo = TaskRepository(db_username="admin", db_password="senha123")
+    repo = TaskRepository(username="admin", password="senha123")
     task = Task("Teste", "Descrição de teste")
     
     # Testar salvamento
@@ -27,7 +27,7 @@ def test_repository_save_failure(mock_db):
     db_instance.insert.return_value = False
     
     # Criar repositório e tarefa
-    repo = TaskRepository(db_username="admin", db_password="senha123")
+    repo = TaskRepository(username="admin", password="senha123")
     task = Task("Teste", "Descrição de teste")
     
     # Testar salvamento com falha
