@@ -6,6 +6,8 @@ logger = ContextLogger()
 
 @with_correlation
 def lambda_handler(event, context):
+    # Handler principal da AWS Lambda
+    # Recebe eventos e contextos da AWS
     logger.info("Lambda recebeu a requisição")
     body = event.get("body", {})
     try:

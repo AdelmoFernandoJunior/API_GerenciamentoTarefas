@@ -23,9 +23,11 @@ def create_user_controller(request_data: dict):
         }
     
     logger.info("Criando instância do UseCase")
+    # UseCase para criação de usuárioS
     use_case = CreateUserUseCase(db_username=db_username, db_password=db_password)
 
     try:
+        # Executa a lógica de criação de usuário
         result = use_case.execute(name, description)
         logger.info("Controller recebeu resultado do UseCase com sucesso")
         return {

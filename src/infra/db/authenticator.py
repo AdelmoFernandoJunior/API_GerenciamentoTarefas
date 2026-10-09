@@ -5,6 +5,7 @@ logger = ContextLogger()
 
 class DatabaseAuthenticator:
     def __init__(self, username: str = None, password: str = None):
+        # Simula um sistema de autenticação simples
         self._username = username
         self._password = password
         self._is_authenticated = False
@@ -12,6 +13,7 @@ class DatabaseAuthenticator:
     
     @with_correlation
     def authenticate(self) -> bool:
+        #
         logger.info("Iniciando processo de autenticação")
         if not self._username or not self._password:
             logger.warning("Tentativa de autenticação sem credenciais")
@@ -28,10 +30,12 @@ class DatabaseAuthenticator:
     
     @property
     def is_authenticated(self) -> bool:
+        # Retorna o estado de autenticação
         return self._is_authenticated
     
     @with_correlation
     def validate_connection(self):
+        # Valida se a conexão está autenticada antes de operações sensíveis
         if not self.is_authenticated:
             logger.error("Tentativa de operação sem autenticação")
             raise PermissionError("É necessário autenticar antes de usar o banco de dados!")
